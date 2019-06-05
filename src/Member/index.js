@@ -6,7 +6,7 @@ class Member extends Component {
 		super(props);
 	
 			this.state = {
-			loggedInUser: this.props.username,
+			loggedInUser: this.props.loggedInUser,
 			// this component should receive the user's information from the DB, probably the entire user object 
 
 			// excluding password for now
@@ -19,7 +19,8 @@ class Member extends Component {
 			lastName: '',
 			gender: '',
 			eventsAttending: [],
-			eventsCreated: []
+			eventsCreated: [],
+			editActive: false
 		};
 
 	}
@@ -46,16 +47,46 @@ class Member extends Component {
 
 		const memberInfo = parsedUserDetails.data
 
-		({memberInfo.age, memberInfo.bio ...rest} = {a, b})
+		// ({memberInfo.age, memberInfo.bio ...rest} = {a, b})
+
+		// console.log(a, '<-- this is a', b, '<--this is b');
+		// can I spread the information in a setState call?
+			/// try to destructure what is being set in state
+
+		this.setState({
+			
+			age: memberInfo.age,
+			bio: memberInfo.bio,
+			email: memberInfo.email,
+			firstName: memberInfo.firstName,
+			lastName: memberInfo.lastName,
+			gender: memberInfo.gender,
+			eventsAttending: [],
+			eventsCreated: []
+
+		})
+
+		console.log(this.state, '<-- this is the state of member component');
+	};
+
+	toggleEdit = (e) => {
 		
-		console.log(a, '<-- this is a', b, '<--this is b');
-
-		// this.setState({
-		// 	// can I spread the information in a setState call?
-		// 	/// try to destructure what is being set in state
-
-		// })
-	}	
+		console.log('toggle edit');
+		console.log(this.state.editActive, '<-- before change');
+		if (!this.state.editActive){
+			this.setState(prevState => ({
+				editActive: true
+			})
+			)
+		} else if (this.state.editActive){
+			this.setState(prevState => ({
+				editActive: false
+			})
+			)
+		}
+		console.log(this.state.editActive, '<-- after change');
+		
+	}
 
 
 	render(){
@@ -64,7 +95,32 @@ class Member extends Component {
 			<Fragment>
 				<div className='userDetails'>
 					Your Member Information
+					<br/>
+					Age: {this.state.age} 
+					<br/>
+					Bio: {this.state.bio}
+					<br/>
+					Email: {this.state.email}
+					<br/>
+					Name: {this.state.firstName + ' ' + this.state.lastName}
+					<br/>
+					Gender: {this.state.gender}
 				</div>
+				<ul>
+					<li>
+						Events Created:
+					</li>
+					<li>
+						Events Attending:
+					</li>
+				</ul>
+
+				{this.state.editActive ? 
+					<button onClick={this.toggleEdit}>Save Profile</button>
+					: 
+					<button onClick={this.toggleEdit}>Edit Profile</button>
+				}
+				
 			</Fragment>
 
 		)
