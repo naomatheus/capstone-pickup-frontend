@@ -6,12 +6,20 @@ class Member extends Component {
 		super(props);
 	
 			this.state = {
-			loggedInUser: this.props.username
+			loggedInUser: this.props.username,
 			// this component should receive the user's information from the DB, probably the entire user object 
 
 			// excluding password for now
 
 			/// member component needs to know who is logged in
+			age: 0,
+			bio: '',
+			email: '',
+			firstName: '',
+			lastName: '',
+			gender: '',
+			eventsAttending: [],
+			eventsCreated: []
 		};
 
 	}
@@ -35,14 +43,27 @@ class Member extends Component {
 		const parsedUserDetails = await userDetailsReq.json();
 
 		console.log(parsedUserDetails, '<-- these are the user details');
+
+		const memberInfo = parsedUserDetails.data
+
+		({memberInfo.age, memberInfo.bio ...rest} = {a, b})
+		
+		console.log(a, '<-- this is a', b, '<--this is b');
+
+		// this.setState({
+		// 	// can I spread the information in a setState call?
+		// 	/// try to destructure what is being set in state
+
+		// })
 	}	
+
 
 	render(){
 		return(
 
 			<Fragment>
-				<div>
-					Member Information
+				<div className='userDetails'>
+					Your Member Information
 				</div>
 			</Fragment>
 
