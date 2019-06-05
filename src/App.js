@@ -9,22 +9,49 @@ class App extends Component {
     super();
     this.state = {
       loggedIn: false,
-      // loginSucess: false,
+      loginMessage: '',
       username: '',
       userId: ''
     }
   }
+
+  login = (username, userId) => {
+    
+    if (!username){
+        this.setState({
+          loggedIn:false,
+          loginMessage: 'Login unsucessful, please try again'
+        })
+
+     } else if (username) {
+
+        this.setState({
+          loggedIn: true,
+          username: username,
+          userId: userId,
+          loginMessage: 'Successful!'
+       })
+    }
+    
+    console.log(this.state, '<-- this is state in the app component');
+  }
+
+
   render(){
     return(
-        <div className='App'>
 
-          App component here
-
-          <Login/>
-          <br/>
-          <Register/>
-
-        </div>
+          <div className='App'>
+          {this.state.loggedIn ? 
+            null 
+            : 
+            <div>
+               <Login login={this.login}/>
+                <br/>
+               <Register/>
+            </div>
+          }
+          </div>
+        
     )
   }
 }
