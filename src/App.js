@@ -8,7 +8,10 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      empty: ''
+      loggedIn: false,
+      // loginSucess: false,
+      username: '',
+      userId: ''
     }
   }
   render(){
@@ -18,6 +21,7 @@ class App extends Component {
           App component here
 
           <Login/>
+          <br/>
           <Register/>
 
         </div>

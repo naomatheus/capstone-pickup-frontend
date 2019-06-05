@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+
 class Register extends Component {
 	constructor(){
 		super();
@@ -17,9 +18,49 @@ class Register extends Component {
 		}
 	}
 
+	handleSubmit = async (e) => {
+		
+		e.preventDefault();
+		//// this handlesubmit function will make a fetch request to the DB's registration route
+		try {
+
+			console.log(process.env.REACT_APP_EXPRESS_API_URL);
+
+			const registerResponse = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/auth/register`,{
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(this.state),
+				headers: {
+					'Content-Type':'application/json'
+				}
+			});
+
+			await console.log(registerResponse, '<-- this is registerResponse');
+
+			const parsedResponse = await registerResponse.json();
+
+			let message = '';
+			if (parsedResponse.data._id){
+				message = 'login was successful'
+				console.log(message);
+				console.log(parsedResponse, '<-- this is logged in user');
+			} 
+
+			 else if (!parsedResponse.data._id){
+				message = 'there was an issue registering'
+				console.log(message);
+			}
+
+		} catch (err) {
+			console.log(err);
+		}
+
+	};
+
+
 	handleChange = (e) => {
 		
-		console.log(e.target, 'this is e.target');
+		
 		this.setState ({
 				[e.target.name]: e.target.value
 			})
@@ -30,7 +71,7 @@ class Register extends Component {
 		return(
 			<div>
 
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<input 
 						type='text'
 						placeholder='username'
