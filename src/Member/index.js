@@ -96,13 +96,13 @@ class Member extends Component {
 				<div className='userDetails'>
 					Your Member Information
 					<br/>
-					Age: {this.state.age} 
-					<br/>
-					Bio: {this.state.bio}
+					Name: {this.state.firstName + ' ' + this.state.lastName}
 					<br/>
 					Email: {this.state.email}
 					<br/>
-					Name: {this.state.firstName + ' ' + this.state.lastName}
+					Bio: {this.state.bio}
+					<br/>
+					Age: {this.state.age} 
 					<br/>
 					Gender: {this.state.gender}
 				</div>
@@ -117,9 +117,12 @@ class Member extends Component {
 
 				{this.state.editActive ? 
 					<button onClick={this.toggleEdit}>Save Profile</button>
+					
 					: 
 					<button onClick={this.toggleEdit}>Edit Profile</button>
 				}
+
+				
 				
 			</Fragment>
 
