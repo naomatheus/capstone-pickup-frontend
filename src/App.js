@@ -35,6 +35,14 @@ class App extends Component {
     }
     
     console.log(this.state, '<-- this is state in the app component');
+  };
+
+  logout = () => {
+      if (this.state.loggedIn){
+        this.setState({
+          loggedIn: false
+        })
+      }
   }
 
 
@@ -43,7 +51,7 @@ class App extends Component {
 
           <div className='App'>
           {this.state.loggedIn ? 
-            <Member loggedInUser={this.state.username} userId={this.state.userId}/>
+            <Member loggedInUser={this.state.username} userId={this.state.userId} logout={this.logout}/>
             : 
             <div>
                <Login login={this.login}/>

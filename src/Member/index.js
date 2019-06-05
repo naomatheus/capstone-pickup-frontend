@@ -86,6 +86,48 @@ class Member extends Component {
 		}
 		console.log(this.state.editActive, '<-- after change');
 		
+	};
+
+	handleChange = (e) => {
+
+		console.log(e.target.value, '<-- this is target value');
+		// computer property syntax
+		this.setState({
+			[e.target.name]:e.target.value	
+		})
+		
+	};
+
+	handleSubmit = async (e) => {
+		e.preventDefault();
+		/// makes a fetch call to the edit user route, sends in body of form, and uses that to update user. saves user in db.
+		const updateMemberReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/members/${this.props.userId}`,{
+				method: 'PUT',
+				body: JSON.stringify(this.state),
+				credentials: 'include',
+				headers: {
+					'Content-Type':'application/json'
+				}
+			})
+
+		const updatedMemberResponse = await updateMemberReq.json();
+
+		console.log(updatedMemberResponse, '<--updated member');
+	};
+
+	handleDelete = async (e) => {
+		e.preventDefault();
+
+		const deleteMemberReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/members/${this.props.userId}`,{
+			method: 'DELETE',
+			credentials:'include',
+			headers: {
+				'Content-Type':'application/json'
+			}
+		})
+		const deletedMemberResponse = await deleteMemberReq.json();
+
+		console.log(deletedMemberResponse, '<-- deleted member');
 	}
 
 
@@ -116,8 +158,59 @@ class Member extends Component {
 				</ul>
 
 				{this.state.editActive ? 
-					<button onClick={this.toggleEdit}>Save Profile</button>
-					
+					<form onSubmit={this.handleSubmit}>
+						<input
+							type='text'
+							name='firstName'
+							value={this.state.firstName}
+							onChange={this.handleChange}
+						/><br/>
+						<input
+							type='text'
+							name='lastName'
+							value={this.state.lastName}
+							onChange={this.handleChange}
+						/><br/>
+						<input
+							type='text'
+							name='email'
+							value={this.state.email}
+							onChange={this.handleChange}
+						/><br/>
+						<input
+							type='text'
+							name='bio'
+							value={this.state.bio}
+							onChange={this.handleChange}
+						/><br/>
+						<input
+							type='number'
+							name='age'
+							value={this.state.age}
+							onChange={this.handleChange}
+						/><br/>
+						<input
+							type='text'
+							name='gender'
+							value={this.state.gender}
+							onChange={this.handleChange}
+						/><br/>
+						<button 
+							onClick={(e) => { 
+									this.toggleEdit();
+									this.handleSubmit(e);
+								}}>
+							Save Profile
+						</button>
+						<button
+							onClick={(e) => {
+								this.handleDelete(e);
+								this.props.logout();
+							}}
+							>
+							Delete Account
+						</button>
+					</form>
 					: 
 					<button onClick={this.toggleEdit}>Edit Profile</button>
 				}
