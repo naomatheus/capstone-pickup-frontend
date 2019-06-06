@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import EventList from '../EventList';
+import GameDetailsModal from '../GameDetailsModal';
 
 class Event extends Component {
 	constructor(props){
@@ -174,7 +175,9 @@ class Event extends Component {
 					loggedInUser={this.state.loggedInUser}
 					game={this.state.allEvents}
 					showGameDetails={this.showGameDetails}
-
+				/>
+				<GameDetailsModal 
+					viewGame={this.state.viewGame}
 				/>
 			</Fragment>
 		)
