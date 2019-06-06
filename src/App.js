@@ -3,6 +3,7 @@ import './App.css';
 import Login from './Login';
 import Register from './Register';
 import Member from './Member';
+import Event from './Event';
 
 
 class App extends Component {
@@ -50,10 +51,15 @@ class App extends Component {
     return(
 
           <div className='App'>
-          {this.state.loggedIn ? 
-            <Member loggedInUser={this.state.username} userId={this.state.userId} logout={this.logout}/>
+          
+            {this.state.loggedIn ? 
+              <div className='loggedIn'>
+                <Member loggedInUser={this.state.username} userId={this.state.userId} logout={this.logout}/>
+                <br/>
+                <Event/>
+              </div>
             : 
-            <div>
+            <div className='loggedOut'>
                <Login login={this.login}/>
                 <br/>
                <Register/>
