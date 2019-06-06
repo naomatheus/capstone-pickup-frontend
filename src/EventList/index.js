@@ -1,129 +1,76 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 
 
-class EventList extends Component {
-	constructor(props){
-		super(props)
+const EventList = (props) => {
 
-		this.state = {
-			allEvents: [],
-			// this component will need to receive...  
-			loggedInUser: this.props.loggedInUser,
-			eventId: ''
-		}
-	}
-
-	componentDidMount(){
-		this.getAllEvents();
-	}
-	// this component will need to fetch all of the events from the db
-	getAllEvents = async () => {
-		
-		const allEventsReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events`,{
-			method: 'GET',
-			credentials:'include',
-			headers: {
-				'Content-Type':'application/json'
-			}
-		});
-
-		const parsedEvents = await allEventsReq.json();
-
-		console.log(parsedEvents.data, '<-- these are all events in the DB json parsed');
-
-		this.setState({
-			allEvents: parsedEvents.data
-		})
-
-	};
-	
-	showDetails = async (e, game) => {
-		
-		console.log(game);
-
-		// this method should be able to find the details of one particular event
-
-		const singleEvent = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${game._id}`, {
-			method: 'GET',
-			credentials:'include',
-			headers: {
-				'Content-Type':'application/json'
-			}
-		})
-
-		const parsedSingleEvent = await singleEvent.json();
-
-		console.log(parsedSingleEvent, 'this is the event found at the 1th index of all events in the events list component\'s state');
-
-		/// issue is grabbing the event's ID and using it the fetch request
-		// this component needs to know the specific event, or the child component will need to know the specific event
-	}
-	
-
-
-	render() {
-
-		const eventsInList = this.state.allEvents.map((event, i) => {
-				console.log(event, '<-- mapping event');
+	const gamesInList = props.game.map((game, i) => {
+			console.log(game, '<-- mapping game');
+		return(
+			<Fragment key={game._id}>
 				
+				<li key={game._id}>
+					<button 
+					onClick={props.showGameDetails.bind(null, game)}
+					> 
+					View this game
+					</button>
+					<br/>
 
-			return(
-				<Fragment key={event._id}>
+					game Name: 
+					<span> {game.name}  </span>
+					<br/>
+					Sport: 
+					<span> {game.sport} </span>
+					<br/>
+					game Description: 
+					<span> {game.description} </span>
+					<br/>
+					Max. Players: 
+					<span> {game.maxPlayers} 
+					<br/>
+					</span>
+					# of Players Attending: 
+					<span> 
+						{
+							game.memberAttendees.length
+						}
+					</span>
+					<br/>
+					Location: 
+					<span> {game.location} </span>
+					<br/>
+					Date: <span> {game.date} </span>
+					<br/>
+					Created By: 
+					<span> 
+						{game.createdBy}
+					</span>
 					
-					<li key={event._id}>
-						<button 
-						onClick={this.showDetails}
-						> 
-						View this Event
-						</button>
-						<br/>
-
-						Event Name: 
-						<span> {event.name}  </span>
-						<br/>
-						Sport: 
-						<span> {event.sport} </span>
-						<br/>
-						Event Description: 
-						<span> {event.description} </span>
-						<br/>
-						Max. Players: 
-						<span> {event.maxPlayers} 
-						<br/>
-						</span>
-						# of Players Attending: 
-						<span> 
-							{
-								event.memberAttendees.length
-							}
-						</span>
-						<br/>
-						Location: 
-						<span> {event.location} </span>
-						<br/>
-						Date: <span> {event.date} </span>
-						<br/>
-						Created By: 
-						<span> 
-							{event.createdBy}
-						</span>
-						
-					</li>
-				</Fragment>
-			)
-		})
-
+				</li>
+			</Fragment>
+		)
+	})
 		return (
 
 			<Fragment>
-				Event List Component
-				<ul>
-					{eventsInList}
-				</ul>
+				game List Component
+				
+					<div>Hello game list</div>
+					<ul>{gamesInList}</ul>
+				
 			</Fragment>
 		)
-	}
+	
 }
+ 
+ // {eventsInList} < -- put this in the bottom render
+	
+	
+
+
+
+
+
 
 
 export default EventList;

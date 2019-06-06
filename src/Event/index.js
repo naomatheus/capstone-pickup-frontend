@@ -13,27 +13,61 @@ class Event extends Component {
 			description: '',
 			location: '',
 			date: '',
-			maxPlayers: 0	
-
+			maxPlayers: 0,	
+			allEvents: [],
+			viewGame: {
+				createdBy: [],
+				date: '',
+				description: '',
+				location: '',
+				maxPlayers: 0,
+				memberAttendees: [],
+				name: '',
+				sport: '',
+				_id: ''
+			}
 			// this component should know who is logged in, and who is looking at this particular event
 			// learn this from the app component, tell it back to the app component
 		}
 	}
 
-	componentDidMount(){
-
-	}
-
-	getSingleEvent = async () => {
+	getAllEvents = async () => {
 		
 		/// this will make a fetch call using an event ID. it will hit the get single event route in the event controller
-		const eventDetailsReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${this.props.userId}`)
+		const allDetailsReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events`, {
+			method: 'GET',
+			credenetials: 'include',
+			headers: {
+				'Content-Type':'application/json'
+			}
+		})
+
+		const parsedEvents = await allDetailsReq.json();
+
+		console.log(parsedEvents, '<-- these are the parsed events');
+
+		// this.setState({
+		// 	allEvents: parsedEvents
+		// })
+
+		return parsedEvents
 
 
 		// gather and parse the details of a single event
 
 		// setState to display the details of the component
 	};
+
+	componentDidMount(){
+		this.getAllEvents().then(events => {
+			if(events !== null){
+				this.setState({
+					allEvents: events.data
+				})
+			}
+		})
+		console.log(this.state, '<-- events should be here');
+	}
 
 	toggleEdit = async () => {
 		
@@ -75,6 +109,18 @@ class Event extends Component {
 		// needs E only if there are two functions being called by the onClick
 
 
+	};
+
+	showGameDetails = (game) => {
+
+		this.setState({
+			viewGame: {
+				...game
+			}
+		})
+
+		console.log(game,'<-- game in the show details component in the main event compenent');
+
 	}
 
 
@@ -82,6 +128,7 @@ class Event extends Component {
 	// TO DO: // show only edit capability to the member 'createdBy'
 
 	render(){
+		console.log(this.state, '<-- this is the state of the main event component');
 		return(
 			<Fragment>
 				Event Component
@@ -125,6 +172,9 @@ class Event extends Component {
 				</form>
 				<EventList 
 					loggedInUser={this.state.loggedInUser}
+					game={this.state.allEvents}
+					showGameDetails={this.showGameDetails}
+
 				/>
 			</Fragment>
 		)
