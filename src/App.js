@@ -54,9 +54,16 @@ class App extends Component {
           
             {this.state.loggedIn ? 
               <div className='loggedIn'>
-                <Member loggedInUser={this.state.username} userId={this.state.userId} logout={this.logout}/>
+                <Member 
+                  loggedInUser={this.state.username} 
+                  userId={this.state.userId} 
+                  logout={this.logout}
+                  />
                 <br/>
-                <Event/>
+                <Event 
+                  loggedInUser={this.state.username}
+                  userId={this.state.userId}
+                />
               </div>
             : 
             <div className='loggedOut'>

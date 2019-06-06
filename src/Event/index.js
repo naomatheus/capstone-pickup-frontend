@@ -6,12 +6,15 @@ class Event extends Component {
 		super(props);
 
 		this.state = {
+			loggedInUser: this.props.loggedInUser,
+			userId: this.props.userId,
 			name: '',
 			sport: '',
 			description: '',
 			location: '',
 			date: '',
-			maxPlayers: 0			// state should be filled with all of the properties of an Event
+			maxPlayers: 0	
+
 			// this component should know who is logged in, and who is looking at this particular event
 			// learn this from the app component, tell it back to the app component
 		}
@@ -47,7 +50,21 @@ class Event extends Component {
 	};
 
 	handleSubmit = async (e) => {
-		/// needs E only if there are two functions being called by the onClick below
+		e.preventDefault();
+		// needs to fetch call that hits the event post route in the memberController
+		// must include userId
+
+		const createEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/${this.state.userId}/events`,{
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type':'application/json'
+			}
+		})
+
+		const parsedEventDetails = await createEventReq.json();
+
+		console.log(parsedEventDetails, '<-- these are the created event details');
 
 	};
 
@@ -67,7 +84,7 @@ class Event extends Component {
 		return(
 			<Fragment>
 				Event Component
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<label>Create An Event</label>
 					<br/>
 					Name: <input
