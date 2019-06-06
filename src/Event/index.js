@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-
+import EventList from '../EventList';
 
 class Event extends Component {
 	constructor(props){
@@ -57,6 +57,7 @@ class Event extends Component {
 		const createEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/members/${this.state.userId}/events`,{
 			method: 'POST',
 			credentials: 'include',
+			body: JSON.stringify(this.state),
 			headers: {
 				'Content-Type':'application/json'
 			}
@@ -84,6 +85,7 @@ class Event extends Component {
 		return(
 			<Fragment>
 				Event Component
+				
 				<form onSubmit={this.handleSubmit}>
 					<label>Create An Event</label>
 					<br/>
@@ -121,6 +123,9 @@ class Event extends Component {
 						Create Event
 					</button>
 				</form>
+				<EventList 
+					loggedInUser={this.state.loggedInUser}
+				/>
 			</Fragment>
 		)
 	}

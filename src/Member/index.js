@@ -132,6 +132,10 @@ class Member extends Component {
 
 
 	render(){
+
+		// eventsAttending: [],
+		// 	eventsCreated: [], these appear in state 
+
 		return(
 
 			<Fragment>
@@ -151,9 +155,11 @@ class Member extends Component {
 				<ul>
 					<li>
 						Events Created:
+						{this.state.eventsCreated}
 					</li>
 					<li>
 						Events Attending:
+						{this.state.eventsAttending}
 					</li>
 				</ul>
 
