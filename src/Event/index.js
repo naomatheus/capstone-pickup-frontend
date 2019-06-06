@@ -54,7 +54,7 @@ class Event extends Component {
 		// needs to fetch call that hits the event post route in the memberController
 		// must include userId
 
-		const createEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/${this.state.userId}/events`,{
+		const createEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/members/${this.state.userId}/events`,{
 			method: 'POST',
 			credentials: 'include',
 			headers: {
