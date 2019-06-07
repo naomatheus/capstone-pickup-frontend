@@ -33,6 +33,17 @@ class EditGameDetailsModal extends Component {
 			[e.target.name]:e.target.value
 		})		
 
+	};
+
+	handleDelete = async (e) => {
+		e.preventDefault();
+		const deleteEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${this.props.viewGame._id}`);
+
+		const parsedDeletedEvent = await deleteEventReq.json();
+
+		console.log(parsedDeletedEvent,'<-- this is the deleted event');
+
+		return parsedDeletedEvent;
 	}
 
 	render(){
@@ -76,6 +87,11 @@ class EditGameDetailsModal extends Component {
 					onChange={this.handleChange}
 				/><br/>
 				<button type='submit'>Save Game</button>
+				<br/>
+				<button 
+					onClick={this.handleDelete} 
+					type='submit'>Delete Game
+				</button>
 			</form>
 		</div>
 		)
