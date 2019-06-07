@@ -58,7 +58,7 @@ class App extends Component {
                   loggedInUser={this.state.username} 
                   userId={this.state.userId} 
                   logout={this.logout}
-                  />
+                />
                 <br/>
                 <Event 
                   loggedInUser={this.state.username}

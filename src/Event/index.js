@@ -17,17 +17,19 @@ class Event extends Component {
 			date: '',
 			maxPlayers: 0,	
 			allEvents: [],
-			viewGame: {
-				createdBy: [],
-				date: '',
-				description: '',
-				location: '',
-				maxPlayers: 0,
-				memberAttendees: [],
-				name: '',
-				sport: '',
-				_id: ''
-			}
+			indexOfEventToShow: null, // number or null
+			indexOfEventToEdit: null//, // number 
+			// viewGame: {
+			// 	createdBy: [],
+			// 	date: '',
+			// 	description: '',
+			// 	location: '',
+			// 	maxPlayers: 0,
+			// 	memberAttendees: [],
+			// 	name: '',
+			// 	sport: '',
+			// 	_id: ''
+			// }
 			// this component should know who is logged in, and who is looking at this particular event
 			// learn this from the app component, tell it back to the app component
 		}
@@ -46,38 +48,39 @@ class Event extends Component {
 
 		const parsedEvents = await allDetailsReq.json();
 
-		return parsedEvents
 
-
-		// gather and parse the details of a single event
-
-		// setState to display the details of the component
-	};
-
-	componentDidMount(){
-		this.getAllEvents().then(events => {
-			if(events !== null){
-				this.setState({
-					allEvents: events.data
-				})
-			}
+		this.setState({
+			allEvents: parsedEvents.data
 		})
-		console.log(this.state, '<-- events should be here');
+
 	}
 
-	toggleEdit = async () => {
-		
-		/// this will toggle the event update route and form 
 
-	};
+
+	componentDidMount() {
+		this.getAllEvents()
+	}
+
+	editEvent =  (idOfEventToEdit) => {
+
+		// find the index of the event with id idOfEventToEdit
+		const index = this.state.allEvents.findIndex((element) => {
+			if (element._id === idOfEventToEdit){
+				return true
+			}
+		})
+
+		this.setState({
+			indexOfEventToEdit: index,
+			indexOfEventToShow: null
+		}) 
+	}
 
 	handleChange = (e) => {
-		e.preventDefault();	
 		this.setState({
 			[e.target.name]: e.target.value
 		})
-
-	};
+	}
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
@@ -108,25 +111,26 @@ class Event extends Component {
 
 	};
 
-	showGameDetails = (game) => {
+	showGameDetails = (indexOfEventToShow) => {
 
 		this.setState({
-			viewGame: {
-				...game
-			}
+
+			// viewGame: {
+			// 	...game
+			// }
+			indexOfEventToShow: indexOfEventToShow
 		})
 
-		console.log(game,'<-- games in the show details component in the main event compenent');
 
 	}
 
-	updateEvent = async (eventId) => {
+	updateEvent = async (eventId, newData) => {
 		console.log('updating event from main event component');
 
 		const updatedEvent = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${eventId}`,{
 			method: 'PUT',
 			credentials: 'include',
-			body: JSON.stringify(this.state),
+			body: JSON.stringify(newData),
 			headers: {
 				'Content-Type':'application/json'
 			}
@@ -134,9 +138,16 @@ class Event extends Component {
 
 		const parsedUpdatedEvent = await updatedEvent.json();
 
-		console.log(parsedUpdatedEvent, '<-- this is parsedUpdatedEvent');
+		console.log(parsedUpdatedEvent.data, '<-- this is parsedUpdatedEvent');
 
-		return parsedUpdatedEvent;
+		/// find index of event in this.state.... with the right id
+		// update the event in state
+		// make a copy of events array in state
+		// swap the event fro parsedUpdatedEvent.data
+		// set state:
+			// update events array to be your copy
+			// close edit modal --> null
+			// re-open show page --> using index you found
 	}
 
 
@@ -147,6 +158,7 @@ class Event extends Component {
 		console.log(this.state, '<-- this is the state of the main event component');
 		return(
 			<Fragment>
+
 				Event Component
 				
 				<form onSubmit={this.handleSubmit}>
@@ -186,18 +198,47 @@ class Event extends Component {
 						Create Event
 					</button>
 				</form>
-				<EventList 
-					loggedInUser={this.state.loggedInUser}
-					game={this.state.allEvents}
-					showGameDetails={this.showGameDetails}
-				/>
-				<GameDetailsModal 
-					viewGame={this.state.viewGame}
-				/>
-				<EditGameDetailsModal
-					viewGame={this.state.viewGame}
-					updateEvent={this.updateEvent}
-				/>
+
+				{
+					(this.state.indexOfEventToShow === null &&
+					 this.state.indexOfEventToEdit === null) 
+					?	 
+					<EventList 
+						loggedInUser={this.state.loggedInUser}
+						allEvents={this.state.allEvents}
+						showGameDetails={this.showGameDetails}
+					/>
+					:
+					null
+				}
+				
+
+
+
+				{
+					this.state.indexOfEventToShow === null 
+					? 
+					null 
+					:  
+					<GameDetailsModal 
+						gameToShow={this.state.allEvents[this.state.indexOfEventToShow]}
+						editEvent={this.editEvent}
+					/>
+				}	
+
+				{
+					this.state.indexOfEventToEdit === null
+					?
+					null
+					:
+
+					<EditGameDetailsModal
+						gameToEdit={this.state.allEvents[this.state.indexOfEventToEdit]}
+						updateEvent={this.updateEvent}
+					/>
+				}
+
+
 			</Fragment>
 		)
 	}

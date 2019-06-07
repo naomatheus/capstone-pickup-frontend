@@ -6,32 +6,32 @@ class EditGameDetailsModal extends Component {
 		super(props);
 
 		this.state = {
-			viewGame: this.props.viewGame,
 			date: '',
 			location:'',
+			description: '',
 			name:'',
 			sport: ''
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		console.log('calling componentDidMount in EditGameDetailsModal');
 
-		console.log(this.props.viewGame, '<-- viewgame in component did mount');
+		console.log('this.props.gameToEdit:');
+		console.log(this.props.gameToEdit);
 
 		this.setState({
-			viewGame:this.props.viewGame,
-			date: this.props.viewGame.date,
-			location: this.props.viewGame.location,
-			name: this.props.viewGame.name,
-			sport: this.props.viewGame.sport
-
+			date: this.props.gameToEdit.date,
+			location: this.props.gameToEdit.location,
+			name: this.props.gameToEdit.name,
+			sport: this.props.gameToEdit.sport,
+			description: this.props.gameToEdit.description
 		})
 	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.props.updateEvent(this.props.viewGame._id)
+		this.props.updateEvent(this.props.gameToEdit._id, this.state)
 
 	};
 
@@ -45,7 +45,7 @@ class EditGameDetailsModal extends Component {
 
 	handleDelete = async (e) => {
 		e.preventDefault();
-		const deleteEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${this.props.viewGame._id}`);
+		const deleteEventReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${this.props.gameToEdit._id}`);
 
 		const parsedDeletedEvent = await deleteEventReq.json();
 
@@ -56,8 +56,8 @@ class EditGameDetailsModal extends Component {
 
 	render(){
 
-		console.log(this.props.viewGame,'<-- this is props in the edit game details modal ');
-		// console.log(this.state.viewGame, '<--- this is STATE in the edit game details modal');
+		// console.log(this.props.viewGame,'<-- this is props in the edit game details modal ');
+		console.log(this.state.gameToEdit, '<--- this is STATE in the edit game details modal');
 
 		return(
 			<div>
@@ -67,31 +67,31 @@ class EditGameDetailsModal extends Component {
 				Date:<input 
 					text='date'
 					name='date'
-					value={this.state.viewGame.date}
+					value={this.state.date}
 					onChange={this.handleChange}
 				/><br/>
 				Description:<input 
 					text='text'
 					name='description'
-					value={this.state.viewGame.description}
+					value={this.state.description}
 					onChange={this.handleChange}
 				/><br/>
 				Location:<input 
 					text='text'
 					name='location'
-					value={this.state.viewGame.location}
+					value={this.state.location}
 					onChange={this.handleChange}
 				/><br/>
 				Name:<input 
 					text='text'
 					name='name'
-					value={this.state.viewGame.name}
+					value={this.state.name}
 					onChange={this.handleChange}
 				/><br/>
 				Sport:<input 
 					text='text'
 					name='sport'
-					value={this.state.viewGame.sport}
+					value={this.state.sport}
 					onChange={this.handleChange}
 				/><br/>
 				<button type='submit'>Save Game</button>

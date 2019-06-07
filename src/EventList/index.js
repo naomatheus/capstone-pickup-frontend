@@ -2,20 +2,20 @@ import React, {Fragment} from 'react';
 
 
 const EventList = (props) => {
-
-	const gamesInList = props.game.map((game, i) => {
+	console.log("here are props in EventList");
+	console.log(props);
+	const gamesInList = props.allEvents.map((game, i) => {
 			// console.log(game, '<-- mapping game');
 		return(
 			<Fragment key={game._id}>
 				
 				<li key={game._id}>
 					<button 
-					onClick={props.showGameDetails.bind(null, game)}
+						onClick={props.showGameDetails.bind(null, i)}
 					> 
 					View this game
 					</button>
 					<br/>
-
 					game Name: 
 					<span> {game.name}  </span>
 					<br/>
