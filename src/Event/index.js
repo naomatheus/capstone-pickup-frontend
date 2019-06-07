@@ -19,18 +19,9 @@ class Event extends Component {
 			allEvents: [],
 			indexOfEventToShow: null, // number or null
 			indexOfEventToEdit: null,
-			tempOfEvents: []//, // number 
-			// viewGame: {
-			// 	createdBy: [],
-			// 	date: '',
-			// 	description: '',
-			// 	location: '',
-			// 	maxPlayers: 0,
-			// 	memberAttendees: [],
-			// 	name: '',
-			// 	sport: '',
-			// 	_id: ''
-			// }
+			tempOfEvents: [],
+			createEventActive: false
+			//, // number 
 			// this component should know who is logged in, and who is looking at this particular event
 			// learn this from the app component, tell it back to the app component
 		}
@@ -99,9 +90,10 @@ class Event extends Component {
 
 		const parsedEventDetails = await createEventReq.json();
 
-		// console.log(parsedEventDetails, '<-- these are the created event details');
-		return parsedEventDetails
+		this.state.allEvents.push(parsedEventDetails);
 
+		this.getAllEvents();
+		
 	};
 
 	handleDelete = async (e) => {
@@ -184,7 +176,20 @@ class Event extends Component {
 			})
 		}
 
+	createEventActive = (e) => {
 
+		if (!this.state.createEventActive){
+				this.setState(prevState => ({
+					createEventActive: true
+				})
+			)
+		} else {
+			this.setState(prevState => ({
+					createEventActive: false
+				})
+			)
+		}
+	}
 
 	// TO DO: // show only edit capability to the member 'createdBy'
 
@@ -194,8 +199,16 @@ class Event extends Component {
 			<Fragment>
 
 				Event Component
-				
-				<form onSubmit={this.handleSubmit}>
+				<button 
+					onClick={this.createEventActive}>
+					Create An Event
+				</button>
+				{
+					this.state.createEventActive === false 
+					? 
+					null
+					:
+					<form>
 					<label>Create An Event</label>
 					<br/>
 					Name: <input
@@ -228,10 +241,19 @@ class Event extends Component {
 						name='maxPlayers'
 						onChange={this.handleChange}
 					/> <br/>
-					<button type='submit'>
-						Create Event
+					<button 
+						type='submit'
+						onClick={(e)=> {
+							this.createEventActive(e);
+							this.handleSubmit(e);
+							}
+						}
+						>
+						Save New Event
 					</button>
 				</form>
+				}
+				
 
 				{
 					(this.state.indexOfEventToShow === null &&
