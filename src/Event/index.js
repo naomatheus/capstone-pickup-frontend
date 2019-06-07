@@ -18,7 +18,8 @@ class Event extends Component {
 			maxPlayers: 0,	
 			allEvents: [],
 			indexOfEventToShow: null, // number or null
-			indexOfEventToEdit: null//, // number 
+			indexOfEventToEdit: null,
+			tempOfEvents: []//, // number 
 			// viewGame: {
 			// 	createdBy: [],
 			// 	date: '',
@@ -141,14 +142,47 @@ class Event extends Component {
 		console.log(parsedUpdatedEvent.data, '<-- this is parsedUpdatedEvent');
 
 		/// find index of event in this.state.... with the right id
-		// update the event in state
+		const foundIndex = this.state.allEvents.findIndex((element) => {
+				
+					return element._id === parsedUpdatedEvent.data._id
+				}
+			
+		)
+
+		console.log(foundIndex, '<-- found index of ele to update'); //=> 4 
+
+		// find the event in state
+		const originalEvent = this.state.allEvents[foundIndex]
+		
+
 		// make a copy of events array in state
+		const tempOfEvents = this.state.allEvents;
+
+		this.setState({
+			tempOfEvents: tempOfEvents
+
+		})
+
+		console.log(this.state.tempOfEvents, ' <--- temporary events stored here');
+
+		// <-- event to update in copy
+		this.state.tempOfEvents[foundIndex] = parsedUpdatedEvent.data;
 		// swap the event fro parsedUpdatedEvent.data
 		// set state:
-			// update events array to be your copy
-			// close edit modal --> null
-			// re-open show page --> using index you found
-	}
+		
+		console.log(this.state.tempOfEvents, "<-- after replacement");
+		// update events array to be your copy
+		
+
+
+		// close edit modal --> null
+		// re-open show page --> using index you found
+			this.setState({
+				indexOfEventToEdit: null,
+				indexOfEventToShow: foundIndex,
+				allEvents: tempOfEvents
+			})
+		}
 
 
 
