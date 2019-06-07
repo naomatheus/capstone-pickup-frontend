@@ -20,10 +20,12 @@ class Event extends Component {
 			indexOfEventToShow: null, // number or null
 			indexOfEventToEdit: null,
 			tempOfEvents: [],
-			createEventActive: false
+			createEventActive: false,
 			//, // number 
 			// this component should know who is logged in, and who is looking at this particular event
 			// learn this from the app component, tell it back to the app component
+			createdBy: []
+			/// IF THE USER CREATES AN EVENT, THE USER WILL ALWAYS BE THAT USER. HENCE THEIR USER ID SHOULD BE PUSHED INTO CREATED BY. THIS HAPPENS AT THE DB LEVEL, but not evident at the app level
 		}
 	}
 
@@ -40,9 +42,12 @@ class Event extends Component {
 
 		const parsedEvents = await allDetailsReq.json();
 
-
+		console.log("here's the events we got");
+		console.log(parsedEvents);
+		
 		this.setState({
-			allEvents: parsedEvents.data
+			allEvents: parsedEvents.data,
+			createEventActive: false
 		})
 
 	}
@@ -88,7 +93,11 @@ class Event extends Component {
 			}
 		})
 
+		console.log(createEventReq.body, '<-- body of the fetch request in main event component');
+
 		const parsedEventDetails = await createEventReq.json();
+
+		console.log(parsedEventDetails, '<--- new event');
 
 		this.state.allEvents.push(parsedEventDetails);
 
@@ -194,7 +203,7 @@ class Event extends Component {
 	// TO DO: // show only edit capability to the member 'createdBy'
 
 	render(){
-		console.log(this.state, '<-- this is the state of the main event component');
+		// console.log(this.state, '<-- this is the state of the main event component');
 		return(
 			<Fragment>
 
@@ -256,8 +265,10 @@ class Event extends Component {
 				
 
 				{
-					(this.state.indexOfEventToShow === null &&
-					 this.state.indexOfEventToEdit === null) 
+					this.state.indexOfEventToShow === null &&
+					this.state.indexOfEventToEdit === null &&
+					this.state.createEventActive === false
+
 					?	 
 					<EventList 
 						loggedInUser={this.state.loggedInUser}
@@ -269,8 +280,6 @@ class Event extends Component {
 				}
 				
 
-
-
 				{
 					this.state.indexOfEventToShow === null 
 					? 
@@ -279,6 +288,8 @@ class Event extends Component {
 					<GameDetailsModal 
 						gameToShow={this.state.allEvents[this.state.indexOfEventToShow]}
 						editEvent={this.editEvent}
+						loggedInUser={this.state.loggedInUser}
+						userId={this.state.userId}
 					/>
 				}	
 

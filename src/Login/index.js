@@ -24,7 +24,7 @@ class Login extends Component {
 
 		const parsedLogin = await loginResponse.json();
 
-		console.log(parsedLogin.data, '<-- this is parsed login data');
+		// console.log(parsedLogin.data, '<-- this is parsed login data');
 
 		const userId = parsedLogin.data.userDbId
 		const username = parsedLogin.data.username

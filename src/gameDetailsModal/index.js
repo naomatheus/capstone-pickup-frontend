@@ -3,6 +3,12 @@ import React, {Fragment} from 'react';
 const GameDetailsModal = (props) => {
 	
 		console.log(props);
+		
+		/// use the userId of who is logged in to determine whether they should be able to edit the event or not, it is being passed into props
+		// compare whether the userId of the user looking at this page matches the createdBy user
+
+		/// this component may need to become smart so that it can send a fetch request to this particular event in the db and hit the PATCH route in the express backend
+		
 
 	return (
 		
@@ -15,7 +21,7 @@ const GameDetailsModal = (props) => {
 				Name: {props.gameToShow.name}<br/>
 				Sport: {props.gameToShow.sport}<br/>
 				Attending: {props.gameToShow.memberAttendees}<br/>
-				Host: {props.gameToShow.createdBy}
+				Host: {props.gameToShow.createdBy.username}
 			</div>
 			
 			<button 

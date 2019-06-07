@@ -30,6 +30,8 @@ class Member extends Component {
 		this.getInfo()
 	}
 
+	/// make another method to get all the events that a user created, or two fetches or 
+
 	getInfo = async () => {
 		// I think this will be a fetch call to automatically retrieve the information from the user who is logged in 
 		// will hit the show member details route in the backend 
@@ -45,8 +47,9 @@ class Member extends Component {
 
 		// console.log(parsedUserDetails, '<-- these are the user details');
 
-		const memberInfo = parsedUserDetails.data
-
+		const memberInfo = parsedUserDetails
+		console.log("member info here in getInfo in member -- check for events ");
+		console.log(parsedUserDetails);
 		// ({memberInfo.age, memberInfo.bio ...rest} = {a, b})
 
 		// console.log(a, '<-- this is a', b, '<--this is b');

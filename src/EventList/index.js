@@ -5,7 +5,8 @@ const EventList = (props) => {
 	console.log("here are props in EventList");
 	console.log(props);
 	const gamesInList = props.allEvents.map((game, i) => {
-			// console.log(game, '<-- mapping game');
+			console.log(game, '<-- mapping game');
+			console.log(game.createdBy);
 		return(
 			<Fragment key={game._id}>
 				
@@ -43,7 +44,7 @@ const EventList = (props) => {
 					<br/>
 					Created By: 
 					<span> 
-						{game.createdBy}
+						{game.createdBy.username}
 					</span>
 					
 				</li>
@@ -53,7 +54,7 @@ const EventList = (props) => {
 		return (
 
 			<Fragment>
-				game List Component
+					game List Component
 				
 					<div>Hello game list</div>
 					<ul>{gamesInList}</ul>

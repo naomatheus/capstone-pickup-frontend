@@ -35,7 +35,7 @@ class App extends Component {
        })
     }
     
-    console.log(this.state, '<-- this is state in the app component');
+    // console.log(this.state, '<-- this is state in the app component');
   };
 
   logout = () => {
