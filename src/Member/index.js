@@ -26,7 +26,7 @@ class Member extends Component {
 	}
 
 	componentDidMount(){
-		console.log('getting the information');
+		// console.log('getting the information');
 		this.getInfo()
 	}
 
@@ -43,7 +43,7 @@ class Member extends Component {
 
 		const parsedUserDetails = await userDetailsReq.json();
 
-		console.log(parsedUserDetails, '<-- these are the user details');
+		// console.log(parsedUserDetails, '<-- these are the user details');
 
 		const memberInfo = parsedUserDetails.data
 
@@ -66,13 +66,13 @@ class Member extends Component {
 
 		})
 
-		console.log(this.state, '<-- this is the state of member component');
+		// console.log(this.state, '<-- this is the state of member component');
 	};
 
 	toggleEdit = (e) => {
 		
-		console.log('toggle edit');
-		console.log(this.state.editActive, '<-- before change');
+		// console.log('toggle edit');
+		// console.log(this.state.editActive, '<-- before change');
 		if (!this.state.editActive){
 			this.setState(prevState => ({
 				editActive: true
@@ -84,13 +84,13 @@ class Member extends Component {
 			})
 			)
 		}
-		console.log(this.state.editActive, '<-- after change');
+		// console.log(this.state.editActive, '<-- after change');
 		
 	};
 
 	handleChange = (e) => {
 
-		console.log(e.target.value, '<-- this is target value');
+		// console.log(e.target.value, '<-- this is target value');
 		// computer property syntax
 		this.setState({
 			[e.target.name]:e.target.value	
@@ -112,7 +112,8 @@ class Member extends Component {
 
 		const updatedMemberResponse = await updateMemberReq.json();
 
-		console.log(updatedMemberResponse, '<--updated member');
+		// console.log(updatedMemberResponse, '<--updated member');
+		return updatedMemberResponse;
 	};
 
 	handleDelete = async (e) => {
@@ -127,7 +128,8 @@ class Member extends Component {
 		})
 		const deletedMemberResponse = await deleteMemberReq.json();
 
-		console.log(deletedMemberResponse, '<-- deleted member');
+		// console.log(deletedMemberResponse, '<-- deleted member');
+		return deletedMemberResponse;
 	}
 
 

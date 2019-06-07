@@ -2,9 +2,10 @@ import React, {Fragment} from 'react';
 
 const GameDetailsModal = (props) => {
 	
-		console.log(props.viewGame, '<-- these are props in modal');
+		// console.log(props.viewGame, '<-- these are props in modal');
 
 	return (
+		
 		<Fragment>
 			This is the Show Game Details Modal
 			<div>
@@ -18,6 +19,7 @@ const GameDetailsModal = (props) => {
 			</div>
 		</Fragment>
 		)
+
 }
 
 

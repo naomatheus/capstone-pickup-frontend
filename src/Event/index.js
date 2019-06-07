@@ -46,12 +46,6 @@ class Event extends Component {
 
 		const parsedEvents = await allDetailsReq.json();
 
-		console.log(parsedEvents, '<-- these are the parsed events');
-
-		// this.setState({
-		// 	allEvents: parsedEvents
-		// })
-
 		return parsedEvents
 
 
@@ -101,7 +95,8 @@ class Event extends Component {
 
 		const parsedEventDetails = await createEventReq.json();
 
-		console.log(parsedEventDetails, '<-- these are the created event details');
+		// console.log(parsedEventDetails, '<-- these are the created event details');
+		return parsedEventDetails
 
 	};
 
@@ -121,8 +116,27 @@ class Event extends Component {
 			}
 		})
 
-		console.log(game,'<-- game in the show details component in the main event compenent');
+		console.log(game,'<-- games in the show details component in the main event compenent');
 
+	}
+
+	updateEvent = async (eventId) => {
+		console.log('updating event from main event component');
+
+		const updatedEvent = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/events/${eventId}`,{
+			method: 'PUT',
+			credentials: 'include',
+			body: JSON.stringify(this.state),
+			headers: {
+				'Content-Type':'application/json'
+			}
+		})
+
+		const parsedUpdatedEvent = await updatedEvent.json();
+
+		console.log(parsedUpdatedEvent, '<-- this is parsedUpdatedEvent');
+
+		return parsedUpdatedEvent;
 	}
 
 
@@ -182,6 +196,7 @@ class Event extends Component {
 				/>
 				<EditGameDetailsModal
 					viewGame={this.state.viewGame}
+					updateEvent={this.updateEvent}
 				/>
 			</Fragment>
 		)
