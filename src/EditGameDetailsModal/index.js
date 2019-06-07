@@ -16,10 +16,18 @@ class EditGameDetailsModal extends Component {
 
 	componentDidMount(){
 		console.log('calling componentDidMount in EditGameDetailsModal');
-		// this.setState({
-		// 	viewGame:this.props.viewGame
-		// })
-	}
+
+		console.log(this.props.viewGame, '<-- viewgame in component did mount');
+
+		this.setState({
+			viewGame:this.props.viewGame,
+			date: this.props.viewGame.date,
+			location: this.props.viewGame.location,
+			name: this.props.viewGame.name,
+			sport: this.props.viewGame.sport
+
+		})
+	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
@@ -59,31 +67,31 @@ class EditGameDetailsModal extends Component {
 				Date:<input 
 					text='date'
 					name='date'
-					value='sandich'
+					value={this.state.viewGame.date}
 					onChange={this.handleChange}
 				/><br/>
 				Description:<input 
 					text='text'
 					name='description'
-					value={this.props.viewGame.description}
+					value={this.state.viewGame.description}
 					onChange={this.handleChange}
 				/><br/>
 				Location:<input 
 					text='text'
 					name='location'
-					value={this.props.viewGame.location}
+					value={this.state.viewGame.location}
 					onChange={this.handleChange}
 				/><br/>
 				Name:<input 
 					text='text'
 					name='name'
-					value={this.props.viewGame.name}
+					value={this.state.viewGame.name}
 					onChange={this.handleChange}
 				/><br/>
 				Sport:<input 
 					text='text'
 					name='sport'
-					value={this.props.viewGame.sport}
+					value={this.state.viewGame.sport}
 					onChange={this.handleChange}
 				/><br/>
 				<button type='submit'>Save Game</button>
