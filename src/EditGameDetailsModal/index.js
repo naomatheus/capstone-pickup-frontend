@@ -32,6 +32,7 @@ class EditGameDetailsModal extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.updateEvent(this.props.gameToEdit._id, this.state)
+		
 
 	};
 

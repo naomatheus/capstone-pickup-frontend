@@ -8,6 +8,9 @@ const GameDetailsModal = (props) => {
 		// compare whether the userId of the user looking at this page matches the createdBy user
 
 		/// this component may need to become smart so that it can send a fetch request to this particular event in the db and hit the PATCH route in the express backend
+		// const returnToList = (e) => {
+		// 	props.returnToList(e);
+		// }
 		
 
 	return (
@@ -28,6 +31,11 @@ const GameDetailsModal = (props) => {
 				onClick={props.editEvent.bind(null, props.gameToShow._id)}
 			> 
 				Edit this game
+			</button>
+			<button
+				// onClick={returnToList()}
+			>
+			Return to List
 			</button>
 
 		</Fragment>

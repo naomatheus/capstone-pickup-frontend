@@ -200,6 +200,18 @@ class Event extends Component {
 		}
 	}
 
+	returnToList = (e) => {
+
+		this.setState({
+			createEventActive: false,
+			indexOfEventToShow: null,
+			indexOfEventToEdit: null
+		})
+		// this.state.createEventActive === false &&
+		// this.state.indexOfEventToShow === null &&
+		// this.state.indexOfEventToEdit === null 
+	}
+
 	// TO DO: // show only edit capability to the member 'createdBy'
 
 	render(){
@@ -213,9 +225,15 @@ class Event extends Component {
 					Create An Event
 				</button>
 				{
-					this.state.createEventActive === false 
+					this.state.createEventActive === false &&
+					this.state.indexOfEventToShow === null &&
+					this.state.indexOfEventToEdit === null 
 					? 
-					null
+					<EventList 
+						loggedInUser={this.state.loggedInUser}
+						allEvents={this.state.allEvents}
+						showGameDetails={this.showGameDetails}
+					/>
 					:
 					<form>
 					<label>Create An Event</label>
@@ -270,18 +288,20 @@ class Event extends Component {
 					this.state.createEventActive === false
 
 					?	 
-					<EventList 
-						loggedInUser={this.state.loggedInUser}
-						allEvents={this.state.allEvents}
-						showGameDetails={this.showGameDetails}
-					/>
+					// <EventList 
+					// 	loggedInUser={this.state.loggedInUser}
+					// 	allEvents={this.state.allEvents}
+					// 	showGameDetails={this.showGameDetails}
+					// />
+					null
 					:
 					null
 				}
 				
 
 				{
-					this.state.indexOfEventToShow === null 
+					this.state.indexOfEventToShow === null &&
+					this.state.createEventActive === false
 					? 
 					null 
 					:  
