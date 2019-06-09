@@ -119,12 +119,7 @@ class Event extends Component {
 	showGameDetails = (indexOfEventToShow) => {
 
 		this.setState({
-
-			// viewGame: {
-			// 	...game
-			// }
-			indexOfEventToShow: indexOfEventToShow,
-			showList: false
+			indexOfEventToShow: indexOfEventToShow
 		})
 
 
@@ -191,7 +186,7 @@ class Event extends Component {
 
 	createEventActive = (e) => {
 
-		if (!this.state.createEventActive){
+		if (this.state.createEventActive === false){
 				this.setState(prevState => ({
 					createEventActive: true
 				})
@@ -210,8 +205,7 @@ class Event extends Component {
 		this.setState({
 			createEventActive: false,
 			indexOfEventToShow: null,
-			indexOfEventToEdit: null,
-			showList: true
+			indexOfEventToEdit: null
 		})
 	}
 
@@ -228,10 +222,9 @@ class Event extends Component {
 					Create An Event
 				</button>
 				{
-					(this.state.createEventActive === false &&
+					this.state.createEventActive === false &&
 					this.state.indexOfEventToShow === null &&
-					this.state.indexOfEventToEdit === null) ||
-					this.state.showList === true 
+					this.state.indexOfEventToEdit === null
 					? 
 					<EventList 
 						loggedInUser={this.state.loggedInUser}
@@ -240,52 +233,105 @@ class Event extends Component {
 					/>
 					
 					:
-					<form>
-					<label>Create An Event</label>
-					<br/>
-					Name: <input
-						type='text'
-						name='name'
-						onChange={this.handleChange}
-					/> <br/>
-					Sport: <input
-						type='text'
-						name='sport'
-						onChange={this.handleChange}
-					/> <br/>
-					Description: <input
-						type='text'
-						name='description'
-						onChange={this.handleChange}
-					/> <br/>
-					Location: <input
-						type='text'
-						name='location'
-						onChange={this.handleChange}
-					/> <br/>
-					Date: <input
-						type='date'
-						name='date'
-						onChange={this.handleChange}
-					/> <br/>
-					Max Players Allowed: <input
-						type='number'
-						name='maxPlayers'
-						onChange={this.handleChange}
-					/> <br/>
-					<button 
-						type='submit'
-						onClick={(e)=> {
-							this.createEventActive(e);
-							this.handleSubmit(e);
-							}
-						}
-						>
-						Save New Event
-					</button>
-				</form>
+					null
+				// 	<form>
+				// 	<label>Create An Event</label>
+				// 	<br/>
+				// 	Name: <input
+				// 		type='text'
+				// 		name='name'
+				// 		onChange={this.handleChange}
+				// 	/> <br/>
+				// 	Sport: <input
+				// 		type='text'
+				// 		name='sport'
+				// 		onChange={this.handleChange}
+				// 	/> <br/>
+				// 	Description: <input
+				// 		type='text'
+				// 		name='description'
+				// 		onChange={this.handleChange}
+				// 	/> <br/>
+				// 	Location: <input
+				// 		type='text'
+				// 		name='location'
+				// 		onChange={this.handleChange}
+				// 	/> <br/>
+				// 	Date: <input
+				// 		type='date'
+				// 		name='date'
+				// 		onChange={this.handleChange}
+				// 	/> <br/>
+				// 	Max Players Allowed: <input
+				// 		type='number'
+				// 		name='maxPlayers'
+				// 		onChange={this.handleChange}
+				// 	/> <br/>
+				// 	<button 
+				// 		type='submit'
+				// 		onClick={(e)=> {
+				// 			this.createEventActive(e);
+				// 			this.handleSubmit(e);
+				// 			}
+				// 		}
+				// 		>
+				// 		Save New Event
+				// 	</button>
+				// </form>
 				}
-								
+				
+				{ 
+					this.state.createEventActive === true 
+					?
+					<form>
+						<label>Create An Event</label>
+						<br/>
+						Name: <input
+							type='text'
+							name='name'
+							onChange={this.handleChange}
+						/> <br/>
+						Sport: <input
+							type='text'
+							name='sport'
+							onChange={this.handleChange}
+						/> <br/>
+						Description: <input
+							type='text'
+							name='description'
+							onChange={this.handleChange}
+						/> <br/>
+						Location: <input
+							type='text'
+							name='location'
+							onChange={this.handleChange}
+						/> <br/>
+						Date: <input
+							type='date'
+							name='date'
+							onChange={this.handleChange}
+						/> <br/>
+						Max Players Allowed: <input
+							type='number'
+							name='maxPlayers'
+							onChange={this.handleChange}
+						/> <br/>
+						<button 
+							type='submit'
+							onClick={(e)=> {
+								this.createEventActive(e);
+								this.handleSubmit(e);
+								}
+							}
+							>
+							Save New Event
+						</button>
+					</form>
+					:
+					null
+
+				}
+
 
 				{
 					this.state.indexOfEventToShow === null &&
