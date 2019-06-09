@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 
 const GameDetailsModal = (props) => {
 	
-		console.log(props);
+		console.log(props,'<-- props in game details');
 		
 		/// use the userId of who is logged in to determine whether they should be able to edit the event or not, it is being passed into props
 		// compare whether the userId of the user looking at this page matches the createdBy user

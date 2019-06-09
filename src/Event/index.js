@@ -187,15 +187,13 @@ class Event extends Component {
 	createEventActive = (e) => {
 
 		if (this.state.createEventActive === false){
-				this.setState(prevState => ({
-					createEventActive: true
-				})
-			)
+			this.setState({
+				createEventActive: true
+			})
 		} else {
-			this.setState(prevState => ({
-					createEventActive: false
-				})
-			)
+			this.setState({
+				createEventActive: false
+			})
 		}
 	}
 
@@ -231,53 +229,15 @@ class Event extends Component {
 						allEvents={this.state.allEvents}
 						showGameDetails={this.showGameDetails}
 					/>
-					
 					:
+					// <GameDetailsModal 
+					// 	gameToShow={this.state.allEvents[this.state.indexOfEventToShow]}
+					// 	editEvent={this.editEvent}
+					// 	loggedInUser={this.state.loggedInUser}
+					// 	userId={this.state.userId}
+					// 	returnToList={this.returnToList}
+					// />
 					null
-				// 	<form>
-				// 	<label>Create An Event</label>
-				// 	<br/>
-				// 	Name: <input
-				// 		type='text'
-				// 		name='name'
-				// 		onChange={this.handleChange}
-				// 	/> <br/>
-				// 	Sport: <input
-				// 		type='text'
-				// 		name='sport'
-				// 		onChange={this.handleChange}
-				// 	/> <br/>
-				// 	Description: <input
-				// 		type='text'
-				// 		name='description'
-				// 		onChange={this.handleChange}
-				// 	/> <br/>
-				// 	Location: <input
-				// 		type='text'
-				// 		name='location'
-				// 		onChange={this.handleChange}
-				// 	/> <br/>
-				// 	Date: <input
-				// 		type='date'
-				// 		name='date'
-				// 		onChange={this.handleChange}
-				// 	/> <br/>
-				// 	Max Players Allowed: <input
-				// 		type='number'
-				// 		name='maxPlayers'
-				// 		onChange={this.handleChange}
-				// 	/> <br/>
-				// 	<button 
-				// 		type='submit'
-				// 		onClick={(e)=> {
-				// 			this.createEventActive(e);
-				// 			this.handleSubmit(e);
-				// 			}
-				// 		}
-				// 		>
-				// 		Save New Event
-				// 	</button>
-				// </form>
 				}
 				
 				{ 
@@ -334,8 +294,7 @@ class Event extends Component {
 
 
 				{
-					this.state.indexOfEventToShow === null &&
-					this.state.createEventActive === false
+					this.state.indexOfEventToShow === null 
 					? 
 					null 
 					:  
@@ -346,6 +305,8 @@ class Event extends Component {
 						userId={this.state.userId}
 						returnToList={this.returnToList}
 					/>
+
+
 				}	
 
 				{
