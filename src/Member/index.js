@@ -47,9 +47,9 @@ class Member extends Component {
 
 		// console.log(parsedUserDetails, '<-- these are the user details');
 
-		const memberInfo = parsedUserDetails
+		const memberInfo = parsedUserDetails.data
 		console.log("member info here in getInfo in member -- check for events ");
-		console.log(parsedUserDetails);
+		console.log(parsedUserDetails.data);
 		// ({memberInfo.age, memberInfo.bio ...rest} = {a, b})
 
 		// console.log(a, '<-- this is a', b, '<--this is b');
@@ -69,7 +69,7 @@ class Member extends Component {
 
 		})
 
-		// console.log(this.state, '<-- this is the state of member component');
+		
 	};
 
 	toggleEdit = (e) => {
@@ -140,6 +140,7 @@ class Member extends Component {
 
 		// eventsAttending: [],
 		// 	eventsCreated: [], these appear in state 
+		console.log(this.state, '<-- this is the state of member component');
 
 		return(
 
