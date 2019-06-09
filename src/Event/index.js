@@ -123,7 +123,8 @@ class Event extends Component {
 			// viewGame: {
 			// 	...game
 			// }
-			indexOfEventToShow: indexOfEventToShow
+			indexOfEventToShow: indexOfEventToShow,
+			showList: false
 		})
 
 
@@ -284,24 +285,7 @@ class Event extends Component {
 					</button>
 				</form>
 				}
-				
-
-				{
-					this.state.indexOfEventToShow === null &&
-					this.state.indexOfEventToEdit === null &&
-					this.state.createEventActive === false
-
-					?	 
-					// <EventList 
-					// 	loggedInUser={this.state.loggedInUser}
-					// 	allEvents={this.state.allEvents}
-					// 	showGameDetails={this.showGameDetails}
-					// />
-					null
-					:
-					null
-				}
-				
+								
 
 				{
 					this.state.indexOfEventToShow === null &&
