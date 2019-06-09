@@ -201,7 +201,7 @@ class Event extends Component {
 	}
 
 	returnToList = (e) => {
-
+		console.log('returning to list');
 		this.setState({
 			createEventActive: false,
 			indexOfEventToShow: null,
@@ -229,11 +229,12 @@ class Event extends Component {
 					this.state.indexOfEventToShow === null &&
 					this.state.indexOfEventToEdit === null 
 					? 
-					<EventList 
-						loggedInUser={this.state.loggedInUser}
-						allEvents={this.state.allEvents}
-						showGameDetails={this.showGameDetails}
-					/>
+					// <EventList 
+					// 	loggedInUser={this.state.loggedInUser}
+					// 	allEvents={this.state.allEvents}
+					// 	showGameDetails={this.showGameDetails}
+					// />
+					null
 					:
 					<form>
 					<label>Create An Event</label>
@@ -288,12 +289,12 @@ class Event extends Component {
 					this.state.createEventActive === false
 
 					?	 
-					// <EventList 
-					// 	loggedInUser={this.state.loggedInUser}
-					// 	allEvents={this.state.allEvents}
-					// 	showGameDetails={this.showGameDetails}
-					// />
-					null
+					<EventList 
+						loggedInUser={this.state.loggedInUser}
+						allEvents={this.state.allEvents}
+						showGameDetails={this.showGameDetails}
+					/>
+					
 					:
 					null
 				}
@@ -310,6 +311,7 @@ class Event extends Component {
 						editEvent={this.editEvent}
 						loggedInUser={this.state.loggedInUser}
 						userId={this.state.userId}
+						returnToList={this.returnToList}
 					/>
 				}	
 

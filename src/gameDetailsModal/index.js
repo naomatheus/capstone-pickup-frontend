@@ -33,7 +33,7 @@ const GameDetailsModal = (props) => {
 				Edit this game
 			</button>
 			<button
-				// onClick={returnToList()}
+				// onClick={props.returnToList()}
 			>
 			Return to List
 			</button>

@@ -2,11 +2,11 @@ import React, {Fragment} from 'react';
 
 
 const EventList = (props) => {
-	console.log("here are props in EventList");
-	console.log(props);
+	// console.log("here are props in EventList");
+	// console.log(props);
 	const gamesInList = props.allEvents.map((game, i) => {
-			console.log(game, '<-- mapping game');
-			console.log(game.createdBy);
+			// console.log(game, '<-- mapping game');
+			// console.log(game.createdBy);
 		return(
 			<Fragment key={game._id}>
 				
