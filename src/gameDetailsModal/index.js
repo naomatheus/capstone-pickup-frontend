@@ -26,18 +26,20 @@ const GameDetailsModal = (props) => {
 				Attending: {props.gameToShow.memberAttendees}<br/>
 				Host: {props.gameToShow.createdBy.username}
 			</div>
-			
-			<button 
-				onClick={props.editEvent.bind(null, props.gameToShow._id)}
-			> 
-				Edit this game
-			</button>
-			<button
-				// onClick={props.returnToList()}
-			>
-			Return to List
-			</button>
-
+			<div>
+				<button 
+					onClick={props.editEvent.bind(null, props.gameToShow._id)}
+				> 
+					Edit this game
+				</button>
+			</div>
+			<div>
+				<button 
+					onClick={props.returnToList}
+				>
+				Return to List
+				</button>
+			</div>
 		</Fragment>
 		)
 

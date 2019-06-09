@@ -48,6 +48,9 @@ class Event extends Component {
 		this.setState({
 			allEvents: parsedEvents.data,
 			createEventActive: false
+			// indexOfEventToShow: null,
+			// indexOfEventToEdit: null
+
 		})
 
 	}
@@ -200,22 +203,21 @@ class Event extends Component {
 		}
 	}
 
-	returnToList = (e) => {
+	returnToList = () => {
 		console.log('returning to list');
+		// e.preventDefault();
 		this.setState({
 			createEventActive: false,
 			indexOfEventToShow: null,
-			indexOfEventToEdit: null
+			indexOfEventToEdit: null,
+			showList: true
 		})
-		// this.state.createEventActive === false &&
-		// this.state.indexOfEventToShow === null &&
-		// this.state.indexOfEventToEdit === null 
 	}
 
 	// TO DO: // show only edit capability to the member 'createdBy'
 
 	render(){
-		// console.log(this.state, '<-- this is the state of the main event component');
+		console.log(this.state, '<-- this is the state of the main event component');
 		return(
 			<Fragment>
 
@@ -225,16 +227,17 @@ class Event extends Component {
 					Create An Event
 				</button>
 				{
-					this.state.createEventActive === false &&
+					(this.state.createEventActive === false &&
 					this.state.indexOfEventToShow === null &&
-					this.state.indexOfEventToEdit === null 
+					this.state.indexOfEventToEdit === null) ||
+					this.state.showList === true 
 					? 
-					// <EventList 
-					// 	loggedInUser={this.state.loggedInUser}
-					// 	allEvents={this.state.allEvents}
-					// 	showGameDetails={this.showGameDetails}
-					// />
-					null
+					<EventList 
+						loggedInUser={this.state.loggedInUser}
+						allEvents={this.state.allEvents}
+						showGameDetails={this.showGameDetails}
+					/>
+					
 					:
 					<form>
 					<label>Create An Event</label>
@@ -289,12 +292,12 @@ class Event extends Component {
 					this.state.createEventActive === false
 
 					?	 
-					<EventList 
-						loggedInUser={this.state.loggedInUser}
-						allEvents={this.state.allEvents}
-						showGameDetails={this.showGameDetails}
-					/>
-					
+					// <EventList 
+					// 	loggedInUser={this.state.loggedInUser}
+					// 	allEvents={this.state.allEvents}
+					// 	showGameDetails={this.showGameDetails}
+					// />
+					null
 					:
 					null
 				}
