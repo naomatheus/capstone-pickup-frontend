@@ -23,7 +23,7 @@ const GameDetailsModal = (props) => {
 				Location: {props.gameToShow.location}<br/>
 				Name: {props.gameToShow.name}<br/>
 				Sport: {props.gameToShow.sport}<br/>
-				Attending: {props.gameToShow.memberAttendees}<br/>
+				
 				Host: {props.gameToShow.createdBy.username}
 			</div>
 			<div>
@@ -52,3 +52,6 @@ const GameDetailsModal = (props) => {
 
 
 export default GameDetailsModal;
+
+// put this back in line 26
+// Attending: {props.gameToShow.memberAttendees}<br/>

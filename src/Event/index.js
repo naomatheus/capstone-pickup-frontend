@@ -228,11 +228,33 @@ class Event extends Component {
 
 		console.log(parsedJoinGameResponse.updatedEventData, '<-- this is expected to be the game the user is joining');
 
-		
+		// find the index of the event that needs to be updated
+		const foundIndex = this.state.allEvents.findIndex((element) => {
+			return element._id === parsedJoinGameResponse.updatedEventData._id
+		})
 
-		
+		console.log(parsedJoinGameResponse.updatedEventData._id, foundIndex, 'the event and event index were found');
 
+		/// the event at the above index in the allEvents array should be replaced
+
+		// use a copy of events array in state
+		const tempOfEvents = this.state.allEvents;
+
+		// replace the event in this array, and then set the copy as the allEvents in state
+
+		tempOfEvents[foundIndex] = parsedJoinGameResponse.updatedEventData
+
+		console.log(tempOfEvents,'<-- this is the temporary events copy that will replace the events currently in state ');
+
+		// re-open show page --> using index you found
+		this.setState({
+			indexOfEventToEdit: null,
+			indexOfEventToShow: foundIndex,
+			allEvents: tempOfEvents
+		})
 		// it will send the response into state
+		// to do that it must find the event is being joined and replace that within the allEvents array in state
+		/// may want to use the temp events again and update the array in the same way that the updateEvent method works
 
 	}
 
@@ -240,6 +262,7 @@ class Event extends Component {
 
 	render(){
 		console.log(this.state, '<-- this is the state of the main event component');
+		console.log(this.state.allEvents, '<-- these are the events in state');
 		return(
 			<Fragment>
 
