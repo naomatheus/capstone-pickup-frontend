@@ -40,6 +40,11 @@ const GameDetailsModal = (props) => {
 				Return to List
 				</button>
 			</div>
+			<div>
+				<button onClick={props.joinGame}>
+					Join Game (returns to list)
+				</button>
+			</div>
 		</Fragment>
 		)
 

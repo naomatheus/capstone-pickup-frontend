@@ -207,6 +207,35 @@ class Event extends Component {
 		})
 	}
 
+	joinGame = async () => {
+		console.log('user joining game');
+		const joinGameReq = await fetch(`${process.env.REACT_APP_EXPRESS_API_URL}/members/${this.state.userId}/events/${this.state.allEvents[this.state.indexOfEventToShow]._id}/join`, {
+			method: 'PATCH',
+			credentials: 'include',
+			body: JSON.stringify(this.state),
+			headers: {
+				'Content-Type':'application/json'
+			}
+		});
+
+		// this route will make a request to the server
+		// - PUT/PATCH 'user/{id}/game/{gameId}/edit||join'
+		// it will use the userId, and gameId to finalize the request 
+
+		const parsedJoinGameResponse = await joinGameReq.json();
+
+		console.log(parsedJoinGameResponse.attendeeData, '<-- this is expected to be the profile of the user joining the event');
+
+		console.log(parsedJoinGameResponse.updatedEventData, '<-- this is expected to be the game the user is joining');
+
+		
+
+		
+
+		// it will send the response into state
+
+	}
+
 	// TO DO: // show only edit capability to the member 'createdBy'
 
 	render(){
@@ -304,6 +333,7 @@ class Event extends Component {
 						loggedInUser={this.state.loggedInUser}
 						userId={this.state.userId}
 						returnToList={this.returnToList}
+						joinGame={this.joinGame}
 					/>
 
 
